@@ -1,0 +1,47 @@
+
+{% extends 'base.html'%}
+{% load staticfiles%}
+
+
+{% block content%}
+<h1>Hello!</h1>
+
+  <button type="button" class="btn btn-primary js-create-book"  data-url="{% url 'create' %}">
+    New user
+  </button>
+
+
+ {% include 'users_list.html' %}
+
+
+
+<div class="modal" id="modal-book" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-dialog-centered" role="document">
+      <div class="modal-content">          
+            
+      </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="modal fade" id="modal-book">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div> -->
+
+  
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/my.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
