@@ -18,7 +18,10 @@ $(function () {
 });
 
 $("#modal-book").on("submit", ".js-book-create-form", function () {
+    
     var form = $(this);
+
+ 
     $.ajax({
       url: form.attr("action"),
       data: form.serialize(),

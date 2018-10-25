@@ -20,8 +20,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView
-
-
+from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 
@@ -95,27 +95,29 @@ def thanks(request):
 
 
 class UserCreate(View):
-
+ #   @method_decorator(csrf_protect)
+ #   @method_decorator(ensure_csrf_cookie)
     def post(self, request, *args, **kwargs):
         data = dict()
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            data['form_is_valid'] = True
-            users = MyUser.objects.all()
-            data['users'] = render_to_string('users_list.html', {'users': users})
-        else:
-            data['form_is_valid'] = False
+        use = request.POST
+#        if form.is_valid():
+#            form.save()
+        data['form_is_valid'] = True
+#            users = MyUser.objects.all()
+        users = use
+
+        data['users'] = render_to_string('users_list.html', {'users': users})
+#        else:
+#            data['form_is_valid'] = False
         return JsonResponse(data)
 
-    
+    @method_decorator(ensure_csrf_cookie)
     def get(self, request):
-        form = UserForm()
+ #       form = UserForm()
         data = dict()
-        context = {'form': form, "button": 'создать'}
+ #       context = {'form': form, "button": 'создать'}
         data['html_form'] = render_to_string('users/create.html',
-            context,
-            request=request
+           request=request
         )
         return JsonResponse(data)
 
