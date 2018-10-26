@@ -11,11 +11,12 @@
   </button>
 
 
+
  {% include 'users_list.html' %}
 
 
 
-<div class="modal" id="modal-book" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal" id="modal-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal modal-dialog-centered" role="document">
       <div class="modal-content">          
             
@@ -25,15 +26,11 @@
 
 
 
-<!-- <div class="modal fade" id="modal-book">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    </div>
-  </div> -->
 
   
 {% endblock %}
 {% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 <script src="{% static 'js/my.js' %}"></script>
 {% endblock %}
 

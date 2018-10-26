@@ -7,20 +7,20 @@ $(function () {
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
-        $("#modal-book").modal("show");
+        $("#modal-user").modal("show");
       },
       success: function (data) {
-        $("#modal-book .modal-content").html(data.html_form);
+        $("#modal-user .modal-content").html(data.html_form);
       }
     });
   });
 
 });
 
-$("#modal-book").on("submit", ".js-book-create-form", function () {
+
+$("#modal-user").on("submit", ".js-user-login-form", function () {
     
     var form = $(this);
-
  
     $.ajax({
       url: form.attr("action"),
@@ -31,10 +31,10 @@ $("#modal-book").on("submit", ".js-book-create-form", function () {
         if (data.form_is_valid) {
           
           $("#users-list").html(data.users);
-          $("#modal-book").modal("hide");  // <-- This is just a placeholder for now for testing
+          $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
         }
         else {
-          $("#modal-book .modal-content").html(data.html_form);
+          $("#modal-user .modal-content").html(data.html_form);
         }
       }
     });
@@ -42,21 +42,48 @@ $("#modal-book").on("submit", ".js-book-create-form", function () {
   });
 
 
-$(function () {
-
-  $(".js-login-user").click(function () {
-    var btn = $(this);
+   
+$("#modal-user").on("submit", ".js-user-create-form", function () {
+    
+  var form = $(this);  
     $.ajax({
-      url: btn.attr("data-url"),
-      type: 'get',
+      url: form.attr("action"),
+      data: form.serialize(),
+      type: form.attr("method"),
       dataType: 'json',
-      beforeSend: function () {
-        $("#modal-book").modal("show");
-      },
       success: function (data) {
-        $("#modal-book .modal-content").html(data.html_form);
+        if (data.form_is_valid) {
+          
+          $("#users-list").html(data.users);
+          $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
+        }
+        else {
+          $("#modal-user .modal-content").html(data.html_form);
+        }
       }
     });
+    return false;
   });
 
-});
+
+$("#modal-user").on("submit", ".js-user-remind-form", function () {
+    
+  var form = $(this);  
+    $.ajax({
+      url: form.attr("action"),
+      data: form.serialize(),
+      type: form.attr("method"),
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+          
+          $("#users-list").html(data.users);
+          $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
+        }
+        else {
+          $("#modal-user .modal-content").html(data.html_form);
+        }
+      }
+    });
+    return false;
+  });

@@ -60,7 +60,7 @@ class ConfirmView(View):
             user.is_active = True
             user.save()
             act.delete()
-            return redirect('login')
+            return redirect('index')
 
 
 class LoginView(FormView):
@@ -93,35 +93,6 @@ def thanks(request):
     return render(request, 'users/thanks.html')
 
 
-
-class UserCreate(View):
- #   @method_decorator(csrf_protect)
- #   @method_decorator(ensure_csrf_cookie)
-    def post(self, request, *args, **kwargs):
-        data = dict()
-        use = request.POST
-#        if form.is_valid():
-#            form.save()
-        data['form_is_valid'] = True
-#            users = MyUser.objects.all()
-        users = use
-
-        data['users'] = render_to_string('users_list.html', {'users': users})
-#        else:
-#            data['form_is_valid'] = False
-        return JsonResponse(data)
-
-    @method_decorator(ensure_csrf_cookie)
-    def get(self, request):
- #       form = UserForm()
-        data = dict()
- #       context = {'form': form, "button": 'создать'}
-        data['html_form'] = render_to_string('users/create.html',
-           request=request
-        )
-        return JsonResponse(data)
-
-
 class IndexView(TemplateView):
 
     template_name = "users/index.html"
@@ -132,14 +103,91 @@ class IndexView(TemplateView):
         return context
 
 
-class LogView(View):
-   
-    def get(self, request):
-        form = UserForm()
+
+class UserCreate(View):
+
+    def post(self, request, *args, **kwargs):
         data = dict()
-        context = {'form': form, "button": 'регистрация'}
-        data['html_form'] = render_to_string('users/form_login.html',
-            context,
-            request=request
+        form = request.POST
+
+        if User.objects.filter(email__iexact=form["email"]).exists():
+            data['form_is_valid'] = False
+        else:
+            user = User(
+                username=form["username"],
+                email=form['email'], password=form['pass_confirmation'])
+            user.is_active = False
+#           user.save()
+
+#           code = dtg.make_token(user)
+#           act = Activation()
+#           act.code = code
+#           act.user = user
+#           act.save()
+            data['form_is_valid'] = True
+#        send_confirm_email(request, user.email, code)
+#            messages.success(
+ #                   request, (
+ #                       'You are signed up. To activate the account,\
+ #                        follow the link sent to the mail.'))
+
+        data['users'] = render_to_string('users_list.html', {'users': user.username})
+       
+        return JsonResponse(data)
+
+
+    def get(self, request):
+        data = dict()
+        data['html_form'] = render_to_string('users/create.html',
+           request=request
         )
         return JsonResponse(data)
+
+
+
+
+
+class LogView(View):
+ 
+    def post(self, request, *args, **kwargs):
+        data = dict()
+        use = request.POST
+#        if form.is_valid():
+#            form.save()
+        data['form_is_valid'] = True
+#            users = MyUser.objects.all()
+        users = use['password']
+
+        data['users'] = render_to_string('users_list.html', {'users': users})
+#        else:
+#            data['form_is_valid'] = False
+        return JsonResponse(data)
+
+ #    @method_decorator(ensure_csrf_cookie)
+ #    def get(self, request):
+ #        form = UserForm()
+ #        data = dict()
+ #        context = {'form': form, "button": 'создать'}
+ #        data['html_form'] = render_to_string('users/create.html',
+ #           request=request
+ #        )
+ #        return JsonResponse(data)
+
+
+
+class RemindView(View):
+
+    def post(self, request, *args, **kwargs):
+        data = dict()
+        use = request.POST
+#        if form.is_valid():
+#            form.save()
+        data['form_is_valid'] = True
+#            users = MyUser.objects.all()
+        name = use["email"]
+
+        data['users'] = render_to_string('users_list.html', {'users': name})
+#        else:
+#            data['form_is_valid'] = False
+        return JsonResponse(data)
+
