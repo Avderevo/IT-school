@@ -1,6 +1,11 @@
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from os.path import dirname
+
+BASE_DIR = dirname(dirname(os.path.abspath(__file__)))
+
+
+CONTENT_DIR = os.path.join(BASE_DIR, 'content')
 
 SECRET_KEY = 'h7w4-9@1go+#$psr^&hbg9g%sq54-j@^r)i25)+*rda_(qb@m-'
 
@@ -19,6 +24,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'school',
     'users',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -36,7 +42,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'app/templates')],
+        'DIRS': [os.path.join(CONTENT_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,6 +81,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = 'index'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -87,16 +94,26 @@ USE_L10N = True
 USE_TZ = True
 
 
+STATIC_ROOT = os.path.join(CONTENT_DIR, 'static')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-LOGIN_REDIRECT_URL = 'index'
+MEDIA_ROOT = os.path.join(CONTENT_DIR, 'media')
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [
+    os.path.join(CONTENT_DIR, 'assets'),
+]
+STATIC_URL = '/static/'
+LOCALE_PATHS = [
+    os.path.join(CONTENT_DIR, 'locale')
+]
+
 
 
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'lagatita' #my gmail password
-EMAIL_HOST_USER = 'freeyura78' #my gmail username
+EMAIL_HOST_PASSWORD = 'lagatita'  #my gmail password
+EMAIL_HOST_USER = 'freeyura78'  #my gmail username
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'freeyura78@gmail.com'

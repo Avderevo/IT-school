@@ -1,0 +1,5 @@
+
+
+'To activate your profile, please follow this link:'
+
+{{ uri }}

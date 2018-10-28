@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView, View
 
-# Create your views here.
+
+class IndexPageView(TemplateView):
+    template_name = 'index/index.html'
+
+
+class AllCursesListView(TemplateView):
+    template_name = 'school/all_curses_list.html'
+
+
