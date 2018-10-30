@@ -80,6 +80,19 @@ h1, h2, h3, h4, h5, h6 {
     border: 2px solid #fff
 }
 
+
+.header-section a:hover {
+    text-decoration: none;
+    color: #1bbc9b;
+    background-color: #fff;
+
+}
+
+.header-section a:active {
+    color: #1bbc9b;
+    background-color: #fff;
+}
+
 .header-section span {
     margin: 5px 10px;
 }
@@ -569,6 +582,22 @@ button, input {
     -webkit-border-radius: 4px;
     border-radius: 4px;
     border: 1px solid #fff;
+}
+
+.all_curses_header{
+    padding: 0;
+}
+
+.all_curses_header a:hover{
+    text-decoration: none;
+    color: #50779e;
+    background-color: #fff;
+
+}
+
+.all_curses_header a:active {
+    color: #50779e;
+    background-color: #fff;
 }
 
 /* //-------all_curses_card------ */
