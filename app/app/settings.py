@@ -7,7 +7,7 @@ BASE_DIR = dirname(dirname(os.path.abspath(__file__)))
 
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
 
-SECRET_KEY = 'h7w4-9@1go+#$psr^&hbg9g%sq54-j@^r)i25)+*rda_(qb@m-'
+SECRET_KEY = 'SECRET_KEY'
 
 DEBUG = True
 
@@ -113,7 +113,7 @@ LOCALE_PATHS = [
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'lagatita'  #my gmail password
-EMAIL_HOST_USER = 'freeyura78'  #my gmail username
+EMAIL_HOST_PASSWORD = ''  #my gmail password
+EMAIL_HOST_USER = ''  #my gmail username
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'freeyura78@gmail.com'
+DEFAULT_FROM_EMAIL = ''
