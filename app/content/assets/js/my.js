@@ -31,7 +31,8 @@ $("#modal-user").on("submit", ".js-user-login-form", function () {
         if (data.form_is_valid) {
           
          
-          $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
+          $("#modal-user").modal("hide"); 
+          location.reload();
         }
         else {
           $("#modal-user .modal-content").html(data.html_form);
@@ -45,24 +46,26 @@ $("#modal-user").on("submit", ".js-user-login-form", function () {
    
 $("#modal-user").on("submit", ".js-user-create-form", function () {
     
-  var form = $(this);  
-    $.ajax({
-      url: form.attr("action"),
-      data: form.serialize(),
-      type: form.attr("method"),
-      dataType: 'json',
-      success: function (data) {
-        if (data.form_is_valid) {
-          
-          /*$("#users-list").html(data.users);*/
-          $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
+  var form = $(this);
+      
+        $.ajax({
+        url: form.attr("action"),
+        data: form.serialize(),
+        type: form.attr("method"),
+        dataType: 'json',
+        success: function (data) {
+          if (data.form_is_valid) {
+            
+            /*$("#users-list").html(data.users);*/
+            $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
+          }
+          else {
+            $("#modal-user .modal-content").html(data.html_form);
+          }
         }
-        else {
-          $("#modal-user .modal-content").html(data.html_form);
-        }
-      }
-    });
-    return false;
+      });
+      return false;
+    
   });
 
 
@@ -74,6 +77,10 @@ $("#modal-user").on("submit", ".js-user-remind-form", function () {
       data: form.serialize(),
       type: form.attr("method"),
       dataType: 'json',
+      beforeSend: function () {
+       
+      
+      },
       success: function (data) {
         if (data.form_is_valid) {
           

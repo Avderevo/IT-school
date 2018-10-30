@@ -20,7 +20,7 @@ def send_confirm_email(request, email, code):
     context = {
         'subject': ('Profile activation'),
         'uri': request.build_absolute_uri(
-            reverse('confirm', kwargs={'code': code})),
+            reverse('users:confirm', kwargs={'code': code})),
     }
     send_mail(email, 'activate_profile', context)
 
@@ -29,7 +29,7 @@ def send_reset_password_email(request, email, token, uid):
     context = {
         'subject': ('Restore password'),
         'uri': request.build_absolute_uri(
-            reverse('restore_password', kwargs={
+            reverse('users:restore_password', kwargs={
                 'uidb64': uid, 'token': token})),
     }
 
