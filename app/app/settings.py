@@ -108,6 +108,9 @@ LOCALE_PATHS = [
     os.path.join(CONTENT_DIR, 'locale')
 ]
 
+USER_EMAIL_ACTIVATION = False
+
+APPEND_SLASH = False
 
 
 EMAIL_USE_TLS = True

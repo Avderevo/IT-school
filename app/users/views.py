@@ -15,7 +15,8 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-from django.contrib.auth.mixins import LoginRequiredMixin
+from app import settings
+
 
 
 class UserCreate(View):
@@ -30,23 +31,20 @@ class UserCreate(View):
                 username=form["username"],
                 email=form['email'])
             user.set_password(form["password"])
-            user.is_active = False
             user.save()
+            if settings.USER_EMAIL_ACTIVATION:
+                user.is_active = False
+                code = dtg.make_token(user)
+                act = Activation()
+                act.code = code
+                act.user = user
+                act.save()
+                data['form_is_valid'] = True
+                send_confirm_email(request, user.email, code)
+            else:
+                user.is_active = True
+                data['form_is_valid'] = True
 
-            code = dtg.make_token(user)
-            act = Activation()
-            act.code = code
-            act.user = user
-            act.save()
-            data['form_is_valid'] = True
-            send_confirm_email(request, user.email, code)
-            #user = User.objects.all()
-#            messages.success(
-#                   request, (
-#                       'You are signed up. To activate the account,\
-#                        follow the link sent to the mail.'))
-
-        #data['users'] = render_to_string('users_list.html', {'users': user})
         return JsonResponse(data)
 
     def get(self, request):
@@ -152,4 +150,6 @@ class ConfirmView(View):
 
 
 class LogoutView(LogoutView):
-     template_name = "index/index.html"
+    next_page = "index"
+
+
