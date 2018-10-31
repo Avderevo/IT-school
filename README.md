@@ -5,7 +5,7 @@ project site for online IT school courses
 
 Pages:
  - '/'
- - 'school/curses'
+ - 'school/courses'
  - 'school/calendar/2017'
  - 'school/calendar/2018'
  - 'school/calendar/2019'

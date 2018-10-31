@@ -7,7 +7,7 @@ class IndexPageView(TemplateView):
 
 
 class AllCursesListView(TemplateView):
-    template_name = 'school/all_curses_list.html'
+    template_name = 'school/all_courses_list.html'
 
 
 class CalendarCursesView(View):
