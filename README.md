@@ -27,9 +27,9 @@ $ pong
 Authorization:
 
 For authorization via email, in the settings you need to specify your settings for mail.
-And indicate for "USER_EMAIL_ACTIVATION" - True 
+And indicate for ``` USER_EMAIL_ACTIVATION - True ``` 
 
-If it is "False", authorization will proceed without confirmation by mail.
+If it is ```USER_EMAIL_ACTIVATION - False```, authorization will proceed without confirmation by mail.
 
 
 Сlick the "register and login" button at the top of the page.
