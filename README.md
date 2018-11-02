@@ -10,6 +10,20 @@ Pages:
  - 'school/calendar/2018'
  - 'school/calendar/2019'
  
+
+### For the django-rq module to work, the redis-server must be installed!
+
+``` 
+$ sudo install redis-server
+```
+redis-server test:
+
+```
+$ redis-cli ping
+$ pong
+
+ ```
+
 Authorization:
 
 For authorization via email, in the settings you need to specify your settings for mail.
@@ -25,5 +39,5 @@ Logout:
 
 button "выход"
   
-### Password reminder is available only with ready mail settings!!!
+#### Password reminder is available only with ready mail settings!
 
