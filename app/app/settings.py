@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'school',
     'users',
     'bootstrap4',
+    'django_rq',
+    
 ]
 
 MIDDLEWARE = [
@@ -108,10 +110,9 @@ LOCALE_PATHS = [
     os.path.join(CONTENT_DIR, 'locale')
 ]
 
-USER_EMAIL_ACTIVATION = False
-
 APPEND_SLASH = False
 
+USER_EMAIL_ACTIVATION = False
 
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -120,3 +121,13 @@ EMAIL_HOST_PASSWORD = ''  #my gmail password
 EMAIL_HOST_USER = ''  #my gmail username
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = ''
+
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+    }
+}

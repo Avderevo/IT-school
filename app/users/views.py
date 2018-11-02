@@ -1,4 +1,4 @@
-from django.views.generic import View, TemplateView
+from django.views.generic import View
 from django.contrib.auth.tokens import default_token_generator as dtg
 from django.contrib.auth.views import PasswordResetConfirmView, LogoutView
 from .models import Activation
@@ -16,7 +16,6 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from app import settings
-
 
 
 class UserCreate(View):

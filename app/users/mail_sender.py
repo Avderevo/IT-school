@@ -2,6 +2,7 @@ from app import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django_rq import job
 
 
 def send_mail(to, template, context):
@@ -16,6 +17,7 @@ def send_mail(to, template, context):
     msg.send()
 
 
+@job('default')
 def send_confirm_email(request, email, code):
     context = {
         'subject': ('Profile activation'),
@@ -25,6 +27,7 @@ def send_confirm_email(request, email, code):
     send_mail(email, 'activate_profile', context)
 
 
+@job('default')
 def send_reset_password_email(request, email, token, uid):
     context = {
         'subject': ('Restore password'),
