@@ -25,6 +25,7 @@ class UserCreate(View):
         form = request.POST
         if User.objects.filter(email__iexact=form["email"]).exists():
             data['form_is_valid'] = False
+            data['message'] = "Пользователь с таким Email уже существует"
         else:
             user = User(
                 username=form["username"],
@@ -39,10 +40,18 @@ class UserCreate(View):
                 act.user = user
                 act.save()
                 data['form_is_valid'] = True
+                data['message'] = "Код активации отправлен на ваш email"
+                data['message_template_html'] = render_to_string(
+                    'users/modal_message.html', request=request
+                    )
                 send_confirm_email(request, user.email, code)
             else:
                 user.is_active = True
                 data['form_is_valid'] = True
+                data['message'] = "Вы успешно зарегистрировались"
+                data['message_template_html'] = render_to_string(
+                    'users/modal_message.html', request=request
+                    )
 
         return JsonResponse(data)
 
@@ -72,21 +81,22 @@ class LogView(View):
 
         if not user:
             data['form_is_valid'] = False
+            data['message'] = 'Вы ввели не действительный Email'
+            return JsonResponse(data)
 
         if not user.is_active:
             data['form_is_valid'] = False
+            data['message'] = 'Учетная запись не активирована'
+            return JsonResponse(data)
+
 
         if not user.check_password(form['password']):
             data['form_is_valid'] = False
-#            raise ValidationError(('You entered an invalid password.'))
+            data['message'] = 'Вы ввели не действительный пароль'
 
         else:
             data['form_is_valid'] = True
             login(request, user)
-            
-
-#            data['users'] = render_to_string(
-#                'users_list.html', {'users': users})
 
         return JsonResponse(data)
 
@@ -99,8 +109,12 @@ class RemindPasswordView(View):
         user = User.objects.filter(email__iexact=email).first()
         if not user:
             data['form_is_valid'] = False
+            data['message'] = 'Вы ввели не действительный Email'
+            return JsonResponse(data)
+
         if not user.is_active:
             data['form_is_valid'] = False
+            data['message'] = 'Учетная запись не активирована'
         else:
             token = dtg.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk)).decode()
@@ -110,6 +124,10 @@ class RemindPasswordView(View):
 #            act.save()
             send_reset_password_email(self.request, user.email, token, uid)
             data['form_is_valid'] = True
+            data['message'] = "Код активации отправлен на ваш email"
+            data['message_template_html'] = render_to_string(
+                    'users/modal_message.html', request=request
+                    )
        # user = User.objects.all()
        # data['users'] = render_to_string('users_list.html', {'users': user})
 

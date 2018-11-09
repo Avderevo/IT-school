@@ -540,6 +540,19 @@ button, input {
   
 }
 
+.modal-message {
+    padding: 50px;
+}
+.modal-message-text{
+    margin: 20px;
+}
+
+#create_message{
+    color: #013A6B;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
 /* /*********************************
 /=======++ ALL_CURSES ++=========*
 /*********************************

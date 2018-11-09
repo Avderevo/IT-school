@@ -1,6 +1,6 @@
 $(function () {
 
-  $(".js-create-book").click(function () {
+  $(".js-create-user").click(function () {
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),
@@ -36,6 +36,7 @@ $("#modal-user").on("submit", ".js-user-login-form", function () {
         }
         else {
           $("#modal-user .modal-content").html(data.html_form);
+          $("#log_message").text(data.message);
         }
       }
     });
@@ -56,11 +57,13 @@ $("#modal-user").on("submit", ".js-user-create-form", function () {
         success: function (data) {
           if (data.form_is_valid) {
             
-            /*$("#users-list").html(data.users);*/
-            $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
+            $("#modal-user .modal-content").html(data.message_template_html);
+            $("#create_message").text(data.message);
+            /*$("#modal-user").modal("hide");*/  // <-- This is just a placeholder for now for testing
           }
           else {
             $("#modal-user .modal-content").html(data.html_form);
+            $("#warning-create_message").text(data.message);
           }
         }
       });
@@ -77,18 +80,15 @@ $("#modal-user").on("submit", ".js-user-remind-form", function () {
       data: form.serialize(),
       type: form.attr("method"),
       dataType: 'json',
-      beforeSend: function () {
-       
-      
-      },
       success: function (data) {
         if (data.form_is_valid) {
           
-          /*$("#users-list").html(data.users);*/
-          $("#modal-user").modal("hide");  // <-- This is just a placeholder for now for testing
-        }
+          $("#modal-user .modal-content").html(data.message_template_html);
+          $("#create_message").text(data.message); 
+          } 
         else {
           $("#modal-user .modal-content").html(data.html_form);
+          $("#warning-remind-message").text(data.message);
         }
       }
     });
