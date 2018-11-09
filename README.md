@@ -28,7 +28,10 @@ $ pong
 ```
 $ git clone https://github.com/Avderevo/IT-school-
 
+$ pip3 install requirements.txt
+
 $ cd app
+
 
 $ python manage.py runserver
 
