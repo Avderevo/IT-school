@@ -23,6 +23,17 @@ $ redis-cli ping
 $ pong
 
  ```
+### install
+
+```
+$ git clone https://github.com/Avderevo/IT-school-
+
+$ cd app
+
+$ python manage.py runserver
+
+```
+
 
 Authorization:
 
@@ -41,3 +52,4 @@ button "выход"
   
 #### Password reminder is available only with ready mail settings!
 
+### 
