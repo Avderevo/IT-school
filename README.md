@@ -28,10 +28,11 @@ $ pong
 ```
 $ git clone https://github.com/Avderevo/IT-school-
 
-$ pip3 install requirements.txt
+$ pip install requirements.txt
 
 $ cd app
 
+$ export DJANGO_CONFIGURATION=Dev
 
 $ python manage.py runserver
 
